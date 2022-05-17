@@ -17,54 +17,68 @@
 	</div>
 
 	<div class="mobileNavbar isMobileNavbar">
-		<div class="hamburger">
-			<div class="hamburger__item hamburger__item--first"></div>
-			<div class="hamburger__item hamburger__item--middle"></div>
-			<div class="hamburger__item hamburger__item--last"></div>
-		</div>
+		<!-- <div class="hamburger-wrap">
+			<button class="hamburger" type="button" @click="menuOpen = !menuOpen">
+				<span class="hamburger_line"></span>
+				<span class="hamburger__middle"></span>
+				<span class="icon-bar hamburger__line"></span>  
+			</button>
+		</div> -->
 		<router-link to="#">
 		    <img class="logo" src="../../assets/logo_light2.svg" />
         </router-link>
 
 		<div class="right-menu">
-			<div class="navs">
-				
-			</div>
 			<button class="input-button">Join Now</button>
 		</div>
 	</div>
+
+	<!-- <div class="row dropdown" :class="{ 'dropdown-after' : menuOpen }">
+		<ul class="navlist">
+			<li class="navlistitem">
+				<a href="#">home</a>
+			</li>
+			<li class="navlistitem">
+				<a href="#">about</a>
+			</li>
+			<li class="navlistitem">
+				<a href="#">contact</a>
+			</li>
+		</ul>
+	</div>	 -->
 </template>
 
-<script setup lang="ts">
+<script lang="ts">
+
 //import LangSelect from "@/components/LangSelect/index.vue";
 
-import { ElMessage } from 'element-plus'
+// import { ElMessage } from 'element-plus'
 
 
-import { useAppStore } from '@/store/app'
-import { useUserStore } from '@/store/user'
+// import { useAppStore } from '@/store/app'
+// import { useUserStore } from '@/store/user'
 
-const settings = computed(() => {
-  return appStore.settings
-})
+// const settings = computed(() => {
+//   return appStore.settings
+// })
 
-const opened = computed(() => {
-  return appStore.sidebar.opened
-})
-const appStore = useAppStore()
-const toggleSideBar = () => {
-  appStore.M_toggleSideBar()
-}
+// const opened = computed(() => {
+//   return appStore.sidebar.opened
+// })
+// const appStore = useAppStore()
+// const toggleSideBar = () => {
+//   appStore.M_toggleSideBar()
+// }
 
-const router = useRouter()
-const route = useRoute()
-const loginOut = () => {
-  const userStore = useUserStore()
-  userStore.logout().then(() => {
-    ElMessage({ message: 'Sign out and sign in successfully', type: 'success' })
-    router.push(`/login?redirect=/`)
-  })
-}
+// const router = useRouter()
+// const route = useRoute()
+// const loginOut = () => {
+//   const userStore = useUserStore()
+//   userStore.logout().then(() => {
+//     ElMessage({ message: 'Sign out and sign in successfully', type: 'success' })
+//     router.push(`/login?redirect=/`)
+//   })
+// }
 
 /* export default class extends Vue {
 	private activeName = "directly";
@@ -275,6 +289,76 @@ const loginOut = () => {
 			cursor: pointer;
 		}	
 	}	
+}
+.hamburger-wrap {
+  width: 100px;
+  height: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-wrap {
+  float: right;
+  justify-content: flex-end;
+}
+
+.hamburger {
+  width: 45px;
+  height: 45px;
+  background-color: black;
+  border-radius: 4px;
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.hamburger__line,
+.hamburger__middle {
+  display: block;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.hamburger__middle {
+  width: 20px;
+  margin-left: 10px;
+}
+
+.dropdown {
+  margin-top: -20px;
+  height: 0px;
+  background-color: lightgreen;
+  transition: height 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dropdown-after {
+  height: calc(100vh - 50px);
+  transition: height 0.2s ease;
+}
+
+.navlist {
+  list-style: none;
+}
+
+.navlistitem {
+  text-transform: uppercase;
+  text-align: center;
+  padding: 20px;
+}
+
+.navlistitem a {
+  color: #FFFFFF;
 }
 @media screen and (min-width: 1050px)
 {

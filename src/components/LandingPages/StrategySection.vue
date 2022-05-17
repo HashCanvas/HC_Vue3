@@ -19,7 +19,7 @@
 				height="260px"
 				indicator-position="none"
 			>
-				<el-carousel-item v-for="item in strategies" :key="item.id">
+				<el-carousel-item v-for="(item, index) in strategies" :key="item.id">
 					<el-row :gutter="10">
 						<el-col span="12">
 							<strategy-item
@@ -30,10 +30,10 @@
 						/></el-col>
 						<el-col span="12">
 							<strategy-item
-								:title="item.title"
-								:full-description="item.fullDescription"
-								:usersubscribed="item.usersubscribed"
-								:imageURL="item.imageURL"
+								:title="strategies[index + 1].title"
+								:full-description="strategies[index + 1].fullDescription"
+								:usersubscribed="strategies[index + 1].usersubscribed"
+								:imageURL="strategies[index + 1].imageURL"
 						/></el-col>
 					</el-row>
 				</el-carousel-item>

@@ -347,7 +347,7 @@ export default {
 		.hero-main {
 			flex-direction: column;
 			.hero-text {
-				width: 60%;
+				width: 80%;
 				margin: auto;
 				p {
 					font-size: 20px;
@@ -362,8 +362,9 @@ export default {
 
 				h3 {
 					color: #1890ff;
-					font-size: 40px;
-					line-height: 50px;
+					font-size: 32px;
+					font-weight: 700;
+					line-height: 45px;
 					margin-top: 9px;
 				}
 			}
