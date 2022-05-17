@@ -216,7 +216,7 @@ export default {
             }
 
             h1 {
-                font-size: 55px;
+                font-size: 35px;
                 line-height: 70px;
                 margin: 0;
             }
