@@ -9,7 +9,7 @@
             <el-link href="#">Strategies</el-link>
             <el-link href="#">Roadmap</el-link>
             <el-link href="#">Symbols</el-link>
-            <el-link href="#">Contact</el-link>
+            <el-link href="#" @click="passEvent">Contact</el-link>
             <el-link href="#">Language</el-link>
         </div>
 
@@ -24,9 +24,15 @@
     </section>
 </template>
 
-<script lang="ts">
+<script>
 export default {
-    name: 'FooterSection'
+    name: 'FooterSection',
+    methods: {
+        passEvent(event) {
+            event.preventDefault();
+            this.$emit('showModal', 'true')
+        }
+    },
 }
 </script>
 
@@ -38,7 +44,7 @@ export default {
     background-size: cover;
     padding: 400px 0 0 0;
     position: relative;
-    z-index: -1;
+    z-index: 0;
 
     .footer-title {
         text-align: center;
@@ -54,6 +60,7 @@ export default {
     .social-link {
         text-align: center;
         padding-bottom: 50px;
+        
 
         .el-link {
             color: #fff;
@@ -61,6 +68,7 @@ export default {
             font-size: 16px;
             font-weight: 400;
             line-height: 24px;
+            cursor: pointer;    
         }
     }
 
@@ -72,6 +80,7 @@ export default {
             font-size: 16px;
             font-weight: 400;
             line-height: 24px;
+            cursor: pointer;
         }
     }
 }

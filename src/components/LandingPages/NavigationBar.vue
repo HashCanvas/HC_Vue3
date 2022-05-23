@@ -12,12 +12,12 @@
                 <router-link to="#">About</router-link>
                 <router-link to="#">Contact</router-link>
 			</div>
-			<button class="input-button">Join Now</button>
+			<button class="input-button" @click="passEvent">Join Now</button>
 		</div>
 	</div>
 
 	<div class="mobileNavbar isMobileNavbar">
-		<div class="hamburger">
+		<div class="hamburger" @click="menuOpen = !menuOpen">
 			<div class="hamburger__item hamburger__item--first"></div>
 			<div class="hamburger__item hamburger__item--middle"></div>
 			<div class="hamburger__item hamburger__item--last"></div>
@@ -27,107 +27,48 @@
         </router-link>
 
 		<div class="right-menu">
-			<div class="navs">
-				
-			</div>
-			<button class="input-button">Join Now</button>
+			<button class="input-button" @click="passEvent">Join Now</button>
 		</div>
+	</div>
+
+	<div class="dropdown isMobileNavbar" :class="{ 'dropdown-after' : menuOpen }">
+		<ul class="navlist">
+			<li class="navlistitem hover-underline-animation">
+				<a href="#">Product</a>
+			</li>
+			<li class="navlistitem hover-underline-animation">
+				<a href="#">Strategies</a>
+			</li>
+			<li class="navlistitem hover-underline-animation">
+				<a href="#">Roadmap</a>
+			</li>
+			<li class="navlistitem hover-underline-animation">
+				<a href="#">About</a>
+			</li>
+			<li class="navlistitem hover-underline-animation">
+				<a href="#">Contact</a>
+			</li>
+		</ul>
 	</div>
 </template>
 
-<script setup lang="ts">
-//import LangSelect from "@/components/LangSelect/index.vue";
-
-import { ElMessage } from 'element-plus'
-
-
-import { useAppStore } from '@/store/app'
-import { useUserStore } from '@/store/user'
-
-const settings = computed(() => {
-  return appStore.settings
-})
-
-const opened = computed(() => {
-  return appStore.sidebar.opened
-})
-const appStore = useAppStore()
-const toggleSideBar = () => {
-  appStore.M_toggleSideBar()
-}
-
-const router = useRouter()
-const route = useRoute()
-const loginOut = () => {
-  const userStore = useUserStore()
-  userStore.logout().then(() => {
-    ElMessage({ message: 'Sign out and sign in successfully', type: 'success' })
-    router.push(`/login?redirect=/`)
-  })
-}
-
-/* export default class extends Vue {
-	private activeName = "directly";
-	private inputData =
-		"https://github.com/Armour/vue-typescript-admin-template";
-
-	login() {
-		this.$auth.loginWithRedirect({});
-	}
-
-	// Log the user out
-	logout1() {
-		this.$auth.logout({
-			returnTo: window.location.origin,
-		});
-	}
-
+<script lang="ts">
+export default {
+	props: {
+		menuOpen: Boolean,
+	},
 	data() {
-		drawer: null;
-		isXs: false;
-		items: [
-			["mdi-home-outline", "Home", "#hero"],
-			["mdi-information-outline", "Sobre", "#features"],
-			["mdi-download-box-outline", "Download", "#download"],
-			["mdi-currency-usd", "Preços", "#pricing"],
-			["mdi-email-outline", "Contatos", "#contact"]
-		];
+		return {
+			menuOpen: false
+		}
+	},
+	methods: {
+		passEvent() {
+			this.$emit('showModal', 'true')
+			console.log('showmodal')
+		}
 	}
-
-	private myBackToTopStyle = {
-		right: "50px",
-		bottom: "50px",
-		width: "40px",
-		height: "40px",
-		"border-radius": "4px",
-		"line-height": "45px", // Please keep consistent with height to make it center vertically
-		background: "#e7eaf1",
-	};
-	get sidebar() {
-		return AppModule.sidebar;
-	}
-
-	get device() {
-		return AppModule.device.toString();
-	}
-
-	get avatar() {
-		return UserModule.avatar;
-	}
-
-	private toggleSideBar() {
-		AppModule.ToggleSideBar(false);
-	}
-
-	private async logout() {
-		await UserModule.LogOut();
-		this.$router
-			.push(`/login?redirect=${this.$route.fullPath}`)
-			.catch((err) => {
-				console.warn(err);
-			});
-	}
-}*/
+};
 </script>
 
 <style lang="scss" >
@@ -261,10 +202,10 @@ const loginOut = () => {
 	.right-menu {
 		line-height: 80px;
 		.input-button {
-			width: 120px;
+			width: 110px;
 			height: 40px;
 			padding: 10px;
-			font-size: 16px;
+			font-size: 12px;
 			font-weight: 200;
 			line-height: 20px;
 			color: #ffffff;
@@ -290,7 +231,50 @@ const loginOut = () => {
 	.isDesktopNavbar {
 		display: none;
 	}
-	
+	.dropdown {
+		margin-top: -20px;
+		height: 0px;
+		background-color: rgb(255, 255, 255);
+		transition: height 0.2s ease;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	}
+	.dropdown-after {
+		height: calc(50vh - 50px);
+		transition: height 0.2s ease;
+	}
+	.navlist {
+		list-style: none;
+	}
+	.navlistitem {
+		text-transform: uppercase;
+		padding: 20px;
+	}
+	.navlistitem a {
+		color:  #1890FF;
+	}
+	.hover-underline-animation {
+		position: relative;
+		color: #0087ca;
+	}
+	.hover-underline-animation:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		transform: scaleX(0);
+		height: 2px;
+		bottom: 0;
+		left: 0;
+		background-color: #0087ca;
+		transform-origin: bottom right;
+		transition: transform 0.25s ease-out;
+		transition: transform 0.25s ease-out;
+	}
+	.hover-underline-animation:hover:after {
+		transform: scaleX(1);
+		transform-origin: bottom left;
+	}
 }
 </style>
 

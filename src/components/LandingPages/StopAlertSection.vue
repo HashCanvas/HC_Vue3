@@ -16,9 +16,11 @@
             <h1 class="section-title">We want stop at alerts</h1>
             <p class="sub-title text-center">Join us in our jouney to build the best advice and trading platforms in the industry</p>
             <div class="blue-rectangle"></div>
-            <div class="img">
-                <img src="../../assets/img/landing-page/sal/1.png" />
-                <button class="play_button"><img src="../../assets/img/landing-page/sal/play_btn.png" /></button>
+            <div class="sa-container">
+                <div class="img">
+                    <img src="../../assets/img/landing-page/sal/1.png" />
+                    <button class="play_button"><img src="../../assets/img/landing-page/sal/play_btn.png" /></button>
+                </div>
             </div>
             <div class="text">Check out future road map coming out</div>
         </div>
@@ -259,6 +261,7 @@ export default{
     #sa-section {
         position: relative;
         height: 800px;
+        padding: 50px 0;
         .isDesktop {
             display: none;
         }
@@ -281,7 +284,7 @@ export default{
         .blue-rectangle {
             position: absolute;
             right: 0;
-            top: 450px;
+            top: 350px;
             background-color: #1890FF;
             width: 70%;
             height: 300px;
@@ -289,11 +292,9 @@ export default{
             border-bottom-left-radius: 20px;
             transform: translateY(-32%);
         }
-        
         .text {
             position: absolute;
             bottom: 40px;
-            width: 90%;
             margin: auto;
             order: 2;
             font-weight: 700;
@@ -301,29 +302,35 @@ export default{
             line-height: 45px;
             text-align: center;
         }
-        .img {
-            position: relative;
-            top: 60px;
-            margin-left: 10%;
-            width: 60%;
-            height: 222px;
-            text-align: center;
-            z-index: 2;
-            & > img {
-                width: 100%;
+        .sa-container {
+            position: absolute;
+            width: 100%;
+            top: 295px;
+            left: 15%;
+            margin-top: 0;
+            .img {
+                position: relative;
+                margin-left: 10%;
+                width: 60%;
                 height: 222px;
-            }
-            .play_button {
-                position: absolute;
-                top: 50%;
-                left: -30px;
-                background-color: #fff;
-                transform: translateY(-50%);
-                border-radius: 9999px;
-                border: 1px solid transparent;
-                padding: 0;
-                img {
-                    max-width: 60px;
+                text-align: center;
+                z-index: 2;
+                & > img {
+                    width: 100%;
+                    height: 222px;
+                }
+                .play_button {
+                    position: absolute;
+                    top: 50%;
+                    left: -30px;
+                    background-color: #fff;
+                    transform: translateY(-50%);
+                    border-radius: 9999px;
+                    border: 1px solid transparent;
+                    padding: 0;
+                    img {
+                        max-width: 60px;
+                    }
                 }
             }
         }

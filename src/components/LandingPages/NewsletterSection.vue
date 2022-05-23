@@ -109,7 +109,9 @@ export default {
 			display: flex;
 			justify-content: center;
 			img {
-				width: 100%;
+				width: 70%;
+				margin: auto;
+				display: block;
 			}
 			.newsletter-body {
 				width: 100%; 
@@ -117,6 +119,7 @@ export default {
 			}
 			h3 {
 				font-size: 35px;
+				font-weight: 700;
 			}
 
 			p {

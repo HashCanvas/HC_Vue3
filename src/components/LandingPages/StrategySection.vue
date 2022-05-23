@@ -72,7 +72,7 @@ export default  {
                     id: 2,
                     imageURL: "src/assets/img/landing-page/strategy/3.png",
                     title: "EMA/MA Flip",
-                    fullDescription: "Description",
+                    fullDescription: "Descriptfdskfdfdfjdfljlijiondf\ndslfdslfhsdlfdslfhlfhl",
                     usersubscribed: true,
                     chartURL: "",
                 },

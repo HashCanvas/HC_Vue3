@@ -7,7 +7,7 @@
                 <button class="input-cancel-button">Cancel All Subscriptions</button>
             </div>
             <div class="section-table">
-                <div class="table-row" v-for="item in trades" :key="item.id">
+                <div class="table-row isDesktopTable" v-for="item in trades" :key="item.id">
                     <div>
                         <h3 class="trading" v-if="item.exchange == 'Bitmex'">Bitmex ....</h3>
                         <h3 class="trading" v-else>Binance ....</h3>
@@ -18,6 +18,17 @@
                             <p style="display: inline-block">{{ item.channels.join('-') }}</p>
                         </div>
                         <button class="cancel-button align-right">Cancel</button>
+                    </div>
+                </div>
+                <div class="table-row isMobileTable" v-for="item in trades" :key="item.id">
+                    <h3 class="trading" v-if="item.exchange == 'Bitmex'">Bitmex ....</h3>
+                    <h3 class="trading" v-else>Binance ....</h3>
+                    <div class="data-row align-left">
+                        <p style="display: inline-block; margin-right: 20px">{{ item.symbols[0] }}</p>
+                        <p style="display: inline-block">{{ item.timeframes.join('-') }}</p>
+                        <p style="display: inline-block">{{ item.strategytitle }}</p>
+                        <p style="display: inline-block">{{ item.channels.join('-') }}</p>
+                        <button class="close-btn"><img src="../../assets/img/landing-page/symbol/close_button.png" /></button>
                     </div>
                 </div>
             </div>
@@ -246,8 +257,17 @@ export default {
             width: 10%;
         }
 }
+@media screen and (min-width: 900px) {
+    .isMobileTable {
+        display: none;
+    }
+}
 @media screen and (max-width: 900px) {
+    .isDesktopTable {
+        display: none;
+    }
     #symbol-traded {
+        padding: 300px 0 250px 0;
         .desktop-container {
             width: 85%;
             .section-header {
@@ -258,6 +278,40 @@ export default {
                 margin-bottom: 20px;
             }
         }
+        .input-cancel-button {
+            float: right;
+            width: 220px;
+            height: 46px;
+            padding: 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 40px;
+            color: #1890FF;
+            background-color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 7px 7px 7px 35px;
+            cursor: pointer;
+        }
+        .section-title {
+            margin-top: -200px;
+            margin-bottom: 0;
+        }
+        .table-row {
+            .data-row {
+                position: relative;
+                margin-bottom: 50px;
+                .close-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background-color: #FFFFFF;
+                    border: transparent;
+                    cursor: pointer;
+                }
+            }
+        }
+        
+
     }
 }
 </style>

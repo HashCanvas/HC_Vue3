@@ -42,6 +42,7 @@ export default {
         font-size: 16px;
         line-height: 30px;
         font-weight: 400;
+        z-index: 10;
 
         .card-title {
             color: #fff;

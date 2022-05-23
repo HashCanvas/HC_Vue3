@@ -24,7 +24,6 @@ export default {
         background-image: url('/src/assets/img/landing-page/contact/bg_logo.png');
         background-position: center center;
         background-repeat: no-repeat;
-        z-index: 1;
         margin-bottom: -240px;
 
         .desktop-container {
