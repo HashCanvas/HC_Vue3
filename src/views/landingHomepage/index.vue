@@ -1,18 +1,19 @@
 <template>
-	<div class="bg-gray-200 phil-white-button">
+	<div class="bg-gray-200 phil-white-button" >
     <NavigationBar />
     <HeroSection />
     <SaveHourSection />
     <GuideSection />
     <ExchangeSection />
-    <StrategySection />
+    <StrategySection @showStrategy="showS()" @showDetailStrategy="showD()" />
     <NewsletterSection />
     <StopAlertSection />
     <SymbolTradedSection />
     <ContactSection />
     <FooterSection @showModal="showM($event)" />
 
-    <Modal v-show="isVisibleContact" @close="closeModal">
+    // contact us
+    <Modal v-show="isVisibleContact" @close="closeContactModal">
       <template v-slot:header>
         <b>Contact Us</b>
       </template>
@@ -22,18 +23,18 @@
             v-model="name"
             class="input-card" />
         <input
-            placeholder="Email"
+            placeholder="Preffered Contact"
             v-model="email"
             class="input-card" />
         <textarea 
             placeholder="Message" v-model="message" class="input-card" rows="4">Message</textarea>
       </template>
       <template v-slot:footer>
-        <button class="input-button" @click="showSuccess">Send Message</button>
+        <button class="input-button bottom-button" @click="showSuccess">Send Message</button>
       </template>
     </Modal>
 
-    <!-- <Modal v-show="isshowSuccess" @close="closeModal">
+    <Modal v-show="isVisibleSuccess" @close="closeSuccessModal">
       <template v-slot:header>
       </template>
       <template v-slot:body>
@@ -45,9 +46,9 @@
       <template v-slot:footer>
         <button class="input-button">Understood</button>
       </template>
-    </Modal> -->
+    </Modal>
 
-    <!-- <Modal v-show="isshowStrategy" @close="closeModal">
+    <Modal v-show="isVisibleStrategy" @close="closeStrategyModal">
       <template v-slot:header>
         <b>Strategy EMA/MA</b>
       </template>
@@ -76,8 +77,66 @@
             placeholder="input Field"
             v-model="title"
             class="input-field" />
+        <h3 class="modal-title">Symbols</h3>
+        <!-- <Multiselect 
+          v-model="value"
+          :options="options"
+        /> -->
       </template>
-    </Modal> -->
+      <template v-slot:footer>
+        <button class="primary-button">Cancel</button>
+        <button class="input-button" @click="showMessagingAlert">Subscribe</button>
+      </template>
+    </Modal>
+
+    <Modal v-show="isVisibleDetail" @close="closeDetailModal">
+      <template v-slot:header>
+        <b>Strategy Name</b>
+      </template>
+      <template v-slot:body>
+        <img class="strategy-image" src="../../assets/img/landing-page/modal/graph.png" />
+        <h4 class="modal-body">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h4>
+      </template>
+      <template v-slot:footer>
+        <button class="primary-button">Contact</button>
+        <button class="input-button">Subscribe</button>
+      </template>
+    </Modal>
+    // Select alert messaging method
+    <Modal :style="modalHeight" v-show="isVisibleMessageAlert" @close="closeMessageModal">
+      <template v-slot:header>
+        <b>Select alert messaging method</b>
+      </template>
+      <template v-slot:body>
+        <div class="message-wrapper">
+          <div v-for="item in messages" :key="item.id" class="message-item">
+              <img class="message-image" :src=item.imageURL />
+              <p class="message-title">{{ item.title }}</p>
+				  </div>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <button class="primary-button" @click="showBack">Back</button>
+        <button class="input-button" @click="showCheck">Subscribe</button>
+      </template>
+    </Modal>
+    // success Message
+     <Modal v-show="isVisibleMessageSuccess" @close="closeSuccessMessageModal">
+      <template v-slot:header>
+        
+      </template>
+      <template v-slot:body>
+        <img style=" display: block;
+  margin-left: auto;
+  margin-right: auto; margin-bottom: 40px;" src="src/assets/img/landing-page/modal/check.png" />
+        <h3 class="check-modal-title">Success</h3>
+        <p class="check-modal-subtitle">You're all done kick but and relax until the alerts come</p>
+        <p class="check-modal-body">Good luck on your trading with this alert</p>
+      </template>
+      <template v-slot:footer>
+        <button class="input-button bottom-button">Confirm</button>
+      </template>
+    </Modal>
   </div>
 </template>
 
@@ -99,18 +158,77 @@ import ContactSection from '../../components/LandingPages/ContactSection.vue'
 
 import Modal from '../../components/LandingPages/Modals/Modal.vue'
 
+// import Multiselect from '@vueform/multiselect'
+
 export default  {
     components: {
       NavigationBar, HeroSection, SaveHourSection, GuideSection, ExchangeSection,
       StrategySection, NewsletterSection, AlertSubscriptions, StopAlertSection,
-      SymbolTradedSection, FooterSection, ContactSection, Modal
+      SymbolTradedSection, FooterSection, ContactSection, Modal, 
     },
     data() {
         return {
+          value: null,
+          options: [
+            'Vue',
+            'Script',
+            'Com',
+          ],
+          modalHeight: `
+          .modal-height {
+            height: 100px!important;
+          }
+          `,
+          // Modal state
           isVisibleContact: false,
           isOpen: false,
-          isshowSuccess: false,
-          isshowStrategy: false,
+          isVisibleSuccess: false,
+          isVisibleStrategy: false,
+          isVisibleDetail: false,
+          isVisibleMessageAlert: false,
+          isVisibleMessageSuccess: false,
+          messages: [
+                {
+                    id: 0,
+                    imageURL: "src/assets/img/landing-page/modal/line.png",
+                    title: "Line",
+                },
+                {
+                    id: 1,
+                    imageURL: "src/assets/img/landing-page/modal/email.png",
+                    title: "Email",
+                },
+                {
+                    id: 2,
+                    imageURL: "src/assets/img/landing-page/modal/messenger.png",
+                    title: "Messenger"
+                },
+                {
+                    id: 3,
+                    imageURL: "src/assets/img/landing-page/modal/telegram.png",
+                    title: "telegram",
+                },
+                {
+                    id: 4,
+                    imageURL: "src/assets/img/landing-page/modal/browser.png",
+                    title: "Browser",
+                },
+                {
+                    id: 5,
+                    imageURL: "src/assets/img/landing-page/modal/app.png",
+                    title: "App",
+                },
+                {
+                    id: 6,
+                    imageURL: "src/assets/img/landing-page/modal/viber.png",
+                    title: "Viber",
+                },
+                {
+                    id: 7,
+                    imageURL: "src/assets/img/landing-page/modal/wechat.png",
+                    title: "We chat",
+                },
+            ],
         };
     },
     computed: {
@@ -118,17 +236,47 @@ export default  {
     methods: {
       showM() {
         this.isVisibleContact = true;
-        console.log('OKKKKKKKKKKKK' + this.isVisibleContact)
       },
-      closeModal() {
+      closeContactModal() {
         this.isVisibleContact = false;
       },
-      // showSuccess() {
-      //   this.isshowSuccess = true;
-      // },
-      // showStrategy() {
-      //   this.isshowStrategy = true;
-      // }
+      closeSuccessModal() {
+        this.isVisibleSuccess = false;
+      },
+      closeStrategyModal() {
+        this.isVisibleStrategy = false;
+      },
+      closeDetailModal() {
+        this.isVisibleDetail = false;
+      },
+      closeMessageModal() {
+        this.isVisibleMessageAlert = false;
+      },
+      closeSuccessMessageModal() {
+        this.isVisibleMessageSuccess = false;
+      },
+      showSuccess() {
+        this.isVisibleContact = false;
+        this.isVisibleSuccess = true;
+      },
+      showMessagingAlert() {
+        this.isVisibleStrategy = false;
+        this.isVisibleMessageAlert = true;
+      },
+      showS() {
+        this.isVisibleStrategy = true;
+      },
+      showD() {
+        this.isVisibleDetail = true;
+      },
+      showCheck() {
+        this.isVisibleMessageAlert = false;
+        this.isVisibleMessageSuccess = true;
+      },
+      showBack() {
+        this.isVisibleMessageAlert = false;
+        this.isVisibleStrategy = true;
+      }
     }
 }
 
@@ -188,13 +336,13 @@ body {
       color: #666666;
   }
   .input-button {
+    float: right;
     width: 158px;
     height: 50px;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     line-height: 20px;
-    margin: auto;
     color: #FFFFFF;
     background-color: #1890FF;
     border: 2px solid #1890FF;
@@ -202,6 +350,24 @@ body {
     box-shadow: 0px 4px 20px rgba(24, 144, 255, 0.35);
     cursor: pointer;
 	}
+  .primary-button {
+    float: right;
+    width: 158px;
+    height: 50px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 20px;
+    color:#1890FF;
+    background-color:  #FFFFFF;
+    border: 2px solid #1890FF;
+    border-radius: 7px 7px 7px 35px;
+    box-shadow: 0px 4px 20px rgba(24, 144, 255, 0.35);
+    cursor: pointer;
+  }
+  .bottom-button {
+    margin: auto;
+  }
   .header {
     color: #1890FF;
     font-size: 55px;
@@ -216,5 +382,83 @@ body {
   .image {
     width: 160px;
     margin-left: 40%;
+  }
+  .strategy-image {
+    width: 100%;
+  }
+  .input-field {
+    width: 45%;
+    margin: 10px;
+    font-size: 16px;
+    padding: 20px 20px 20px 0;
+    margin-bottom: 40px;
+    background-color: transparent;
+    border: transparent;
+    border-bottom: 1px solid #97A8BE;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &:focus {
+        opacity:1 ;
+        outline: none;
+    }
+  }
+  .modal-title {
+    color: #1890FF;
+  }
+  .modal-body {
+    color: #304156;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .message-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  .message-title {
+    color: #666666;
+    font-size: 18px;
+    text-align: center;
+  }
+  .message-item {
+    width: 33.3333%;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 20px;
+  }
+  .right-border {
+    border-right: transparent;
+  }
+  .message-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    margin-top: 2rem;
+  }
+  .check-modal-title {
+    color: #1890FF;
+    text-align: center;
+    font-weight: 600;
+    font-size: 55px;
+  }
+  .check-modal-subtitle {
+    color: #666666;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .check-modal-body {
+    color: #304156;
+    font-size: 26px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 80px;
   }
 </style>

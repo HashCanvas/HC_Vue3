@@ -6,17 +6,17 @@
 
         <el-row :gutter="10" type="flex" justify="space-between">
             <el-col span="12">
-                <el-button type="primary" class="primary_button" style="width: 100%">Detail</el-button>
+                <el-button type="primary" class="primary_button" style="width: 100%" @click="passDetail">Detail</el-button>
             </el-col>
             <el-col span="12">
-                <el-button v-if="this.usersubscribed" type="info" class="subscribe_button" style="width: 100%">Subscribed</el-button>
-                <el-button v-else type="primary" class="subscribe_button" style="width: 100%">Subscribe</el-button>
+                <el-button v-if="this.usersubscribed" type="info" class="subscribe_button" style="width: 100%" @click="passEvent">Subscribed</el-button>
+                <el-button v-else type="primary" class="subscribe_button" style="width: 100%" @click="passEvent">Subscribe</el-button>
             </el-col>
         </el-row>
     </div>
 </template>
 
-<script lang="ts">
+<script>
 export default {
 	components: {},
 	name: "StrategyItem",
@@ -28,6 +28,14 @@ export default {
         usersubscribed: Boolean,
         imageURL: String,
 	},
+    methods: {
+        passEvent() {
+            this.$emit('showStrategy', 'true')
+        },
+        passDetail() {
+            this.$emit('showDetail', 'true')
+        }
+    }
 };
 </script>
 

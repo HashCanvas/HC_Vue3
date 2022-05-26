@@ -5,7 +5,7 @@
 		<div class="carousel-wrapper">
 			<el-row  :gutter="20" class="isDesktopStragy">
 				<el-col v-for="item in strategies" :key="item.id" span="6" class="column-item">
-					<StrategyItem
+					<StrategyItem @showStrategy="showS($event)" @showDetail="showD($event)"
 						:title="item.title"
 						:full-description="item.fullDescription"
 						:usersubscribed="item.usersubscribed"
@@ -23,7 +23,7 @@
 					<el-row :gutter="10" v-if="index < strategies.length - 1">
                         
 						<el-col span="12">
-							<strategy-item
+							<strategy-item @showStrategy="showS($event)"
 								:title="item.title"
 								:full-description="item.fullDescription"
 								:usersubscribed="item.usersubscribed"
@@ -48,9 +48,19 @@ import StrategyItem from "./StrategyItem.vue";
 export default  {
     name: "StrategySection",
     methods: {
+        showS() {
+            this.isVisibleStrategy = true;
+            this.$emit('showStrategy', 'true')
+        },
+        showD() {
+            this.isVisibleDetailStrategy = true;
+            this.$emit('showDetailStrategy', 'true')
+        }
     },
     data: () => {
         return {
+            isVisibleStrategy: false,
+            isVisibleDetailStrategy: false,
             strategies: [
                 {
                     id: 0,

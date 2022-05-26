@@ -90,10 +90,6 @@
     justify-content: space-between;
   }
 
-  .modal-footer {
-    flex-direction: column;
-  }
-
   .modal-body {
     position: relative;
     padding: 20px 10px;
