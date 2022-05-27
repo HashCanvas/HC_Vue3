@@ -20,14 +20,12 @@
       <template v-slot:body>
         <input
             placeholder="Name"
-            v-model="name"
             class="input-card" />
         <input
             placeholder="Preffered Contact"
-            v-model="email"
             class="input-card" />
         <textarea 
-            placeholder="Message" v-model="message" class="input-card" rows="4">Message</textarea>
+            placeholder="Message" class="input-card" rows="4">Message</textarea>
       </template>
       <template v-slot:footer>
         <button class="input-button bottom-button" @click="showSuccess">Send Message</button>
@@ -55,33 +53,55 @@
       <template v-slot:body>
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <input
             placeholder="input Field"
-            v-model="title"
             class="input-field" />
         <h3 class="modal-title">Symbols</h3>
-        <!-- <Multiselect 
-          v-model="value"
-          :options="options"
-        /> -->
+          <smart-tagz
+            autosuggest
+            editable
+            inputPlaceholder="Symbols ..."
+            :sources="sources"
+            :allowPaste="{delimiter: ','}"
+            :allowDuplicates="false"
+            :maxTags="20"
+            :defaultTags="['Bitmex: All', 'Bitfinex: XBTUSD', 'Binance: BTCUSDT', 'Binance: Top 10']"
+            :theme="{
+              primary: 'white',
+              background: '#bdbdbd',
+              tagTextColor: '#666666',
+            }"
+          />
+          <h3 class="modal-title">Timeframes</h3>
+          <smart-tagz
+            autosuggest
+            editable
+            inputPlaceholder="Timeframes ..."
+            :sources="sources"
+            :allowPaste="{delimiter: ','}"
+            :allowDuplicates="false"
+            :maxTags="20"
+            :defaultTags="['Monthly', 'Weekly', '3 Day', 'Daily', '12 Hour', '1 Min']"
+            :theme="{
+              primary: 'white',
+              background: '#bdbdbd',
+              tagTextColor: '#666666',
+              borderRaius: '20px',
+            }"
+          />
       </template>
       <template v-slot:footer>
         <button class="primary-button">Cancel</button>
@@ -103,7 +123,7 @@
       </template>
     </Modal>
     // Select alert messaging method
-    <Modal :style="modalHeight" v-show="isVisibleMessageAlert" @close="closeMessageModal">
+    <Modal v-show="isVisibleMessageAlert" @close="closeMessageModal">
       <template v-slot:header>
         <b>Select alert messaging method</b>
       </template>
@@ -158,27 +178,34 @@ import ContactSection from '../../components/LandingPages/ContactSection.vue'
 
 import Modal from '../../components/LandingPages/Modals/Modal.vue'
 
-// import Multiselect from '@vueform/multiselect'
+import { SmartTagz } from "smart-tagz"
+import "smart-tagz/dist/smart-tagz.css"
 
 export default  {
     components: {
-      NavigationBar, HeroSection, SaveHourSection, GuideSection, ExchangeSection,
+      SmartTagz, NavigationBar, HeroSection, SaveHourSection, GuideSection, ExchangeSection,
       StrategySection, NewsletterSection, AlertSubscriptions, StopAlertSection,
       SymbolTradedSection, FooterSection, ContactSection, Modal, 
+    },
+    props: {
+		  // is readonly
+      readOnly: {
+        type: Boolean,
+        default: false,
+      },
+      // custom styles here
+      theme: {
+        default: () => ({
+          primary: "red",
+          background: "#eaf1f8",
+          tagTextColor: "#fff",
+        }),
+      },
     },
     data() {
         return {
           value: null,
-          options: [
-            'Vue',
-            'Script',
-            'Com',
-          ],
-          modalHeight: `
-          .modal-height {
-            height: 100px!important;
-          }
-          `,
+          
           // Modal state
           isVisibleContact: false,
           isOpen: false,
@@ -229,6 +256,8 @@ export default  {
                     title: "We chat",
                 },
             ],
+            sources: [
+            ]
         };
     },
     computed: {
@@ -337,8 +366,8 @@ body {
   }
   .input-button {
     float: right;
-    width: 158px;
-    height: 50px;
+    width: 150px;
+    height: 45px;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
@@ -352,9 +381,10 @@ body {
 	}
   .primary-button {
     float: right;
-    width: 158px;
-    height: 50px;
+    width: 150px;
+    height: 45px;
     padding: 10px;
+    margin-right: 16px;
     font-size: 16px;
     font-weight: bold;
     line-height: 20px;
@@ -388,10 +418,9 @@ body {
   }
   .input-field {
     width: 45%;
-    margin: 10px;
-    font-size: 16px;
-    padding: 20px 20px 20px 0;
-    margin-bottom: 40px;
+    margin: 0 10px;
+    font-size: 14px;
+    padding: 15px 15px 15px 0;
     background-color: transparent;
     border: transparent;
     border-bottom: 1px solid #97A8BE;
@@ -408,6 +437,8 @@ body {
   }
   .modal-title {
     color: #1890FF;
+    margin-top: 16px;
+    font-size: 20px;
   }
   .modal-body {
     color: #304156;
@@ -415,11 +446,13 @@ body {
     font-size: 16px;
     font-weight: 400;
   }
+  // Message Alert
   .message-image {
     display: block;
+    width:90px;
+    height:90px;
     margin-left: auto;
     margin-right: auto;
-
   }
   .message-title {
     color: #666666;
@@ -427,10 +460,10 @@ body {
     text-align: center;
   }
   .message-item {
-    width: 33.3333%;
+    width: 25%;
     border-right: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
-    padding: 20px;
+    padding: 10px;
   }
   .right-border {
     border-right: transparent;
@@ -440,7 +473,13 @@ body {
     flex-wrap: wrap;
     width: 80%;
     margin: auto;
-    margin-top: 2rem;
+    margin-top: 0;
+  }
+  .message-wrapper>.message-item:nth-child(4), .message-wrapper>.message-item:nth-child(8) {
+    border-right: none;
+  }
+  .message-wrapper>.message-item:nth-child(5), .message-wrapper>.message-item:nth-child(6), .message-wrapper>.message-item:nth-child(7), .message-wrapper>.message-item:nth-child(8) {
+    border-bottom: none;
   }
   .check-modal-title {
     color: #1890FF;
@@ -461,4 +500,10 @@ body {
     text-align: center;
     margin-top: 80px;
   }
+
+  // Smart Tags
+  .tags-main {
+    background: #fff!important;
+  }
+  
 </style>

@@ -3,13 +3,11 @@
         <h3 class="card-title">Contact Us</h3>
         <input
             placeholder="Name*"
-            v-model="name"
             class="input-card" />
         <input
             placeholder="Email*"
-            v-model="email"
             class="input-card" />
-        <textarea v-model="message" class="input-card" rows="2">Message</textarea>
+        <textarea  class="input-card" rows="2">Message</textarea>
         <button class="input-button">Join Now</button>
     </div>
 </template>

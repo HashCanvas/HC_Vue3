@@ -15,7 +15,6 @@
 
 						<input
 							placeholder="Your email"
-							v-model="input3"
 							class="input-with-select" />
 						<button class="input-button">Subscribe</button>
 					

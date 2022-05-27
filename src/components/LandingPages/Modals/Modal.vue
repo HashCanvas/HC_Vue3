@@ -76,6 +76,7 @@
     left: 50%;
     border-radius: 15px;
     padding: 40px;
+    overflow: hidden;
   }
 
   .modal-header,
@@ -83,6 +84,10 @@
     padding: 15px;
     display: flex;
     color: #304156;
+  }
+
+  .modal-footer {
+    justify-content: end;
   }
 
   .modal-header {
