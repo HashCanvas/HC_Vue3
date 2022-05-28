@@ -130,7 +130,7 @@
       <template v-slot:body>
         <div class="message-wrapper">
           <div v-for="item in messages" :key="item.id" class="message-item">
-              <img class="message-image" :src=item.imageURL />
+              <img class="message-image" :src=item.imageURL  @click="showLoginSignupModal(item)" />
               <p class="message-title">{{ item.title }}</p>
 				  </div>
         </div>
@@ -140,6 +140,87 @@
         <button class="input-button" @click="showCheck">Subscribe</button>
       </template>
     </Modal>
+
+    //Login and Signup Modal
+    <Modal v-show="isVisibleLoginSignupModal" @close="closeLoginSignupModal">
+      <template v-slot:header></template>
+      <template v-slot:body>
+        <div style="display: flex; flex-wrap: wrap;">
+          <div class="login-part">
+            <h3 class="modal-title ">Log In</h3>
+            <input
+              placeholder="Username*"
+              class="input-card" style="width: 100%!important;" />
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <input v-if="showPassword" type="text"
+                  placeholder="Password"
+                  class="input-card" style="width: 100%!important;" />
+                <input v-else type="password"
+                  placeholder="Password"
+                  class="input-card" style="width: 100%!important;" />
+              </div>
+              <div class="control">
+                <button class="button" @click="toggleShow"><span class="icon is-small is-right">
+                  <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
+                </span>
+                </button>
+              </div>
+            </div>
+            <button class="input-button" @click="showMessaging">Log in</button>
+          </div>
+
+          <div class="signup-part">
+            <h3 class="modal-title">Sign Up</h3>
+            <input
+              placeholder="Username*"
+              class="input-card" style="width: 100%!important;" />
+            <input
+              placeholder="Email*"
+              class="input-card" style="width: 100%!important;" />
+            <input
+              placeholder="Password"
+              class="input-card" style="width: 100%!important;" />
+            <button class="input-button" @click="showMessaging">Sign up</button>
+          </div>
+        </div>
+          
+      </template>
+      <template v-slot:footer>
+      </template>
+    </Modal>
+
+    // Messaging
+    <Modal v-show="isVisibleMessaging" @close="closeMessagingModal">
+      <template v-slot:header>
+        <b>Telegram Messaging</b>
+      </template>
+      <template v-slot:body>
+        <div class="message-wrapper">
+          <div style="display: block; position: relative">
+              <img src="src/assets/img/landing-page/modal/telegram.png" style="width: 52px; height: 52px;" />
+              <img src="src/assets/img/landing-page/modal/arrow.png" style="position: absolute; top: 50%; transform: translateY(-50%);" />
+              <img src="src/assets/img/landing-page/modal/social.png" />
+          </div>
+          <p class="check-modal-subtitle" style="width: 70%; margin: auto;">Login to use your Telegram account with core.telegram.org and SampleBot.</p>
+          <p class="check-modal-body">Please enter your Phone number in the internation format and we will send a confirmation message to yoru account via {{ this.messageAlertName }}.</p>
+          <select v-model="selected" class="input-select">
+            <option v-for="option in options" :value="option.id">
+              {{ option.name}}
+            </option>
+          </select>
+          <input
+            placeholder="" value="+91"
+            class="input-card" />
+        </div>
+        
+        
+      </template>
+      <template v-slot:footer>
+        <button class="input-button bottom-button">Confirm</button>
+      </template>
+    </Modal>
+
     // success Message
      <Modal v-show="isVisibleMessageSuccess" @close="closeSuccessMessageModal">
       <template v-slot:header>
@@ -152,9 +233,13 @@
         <h3 class="check-modal-title">Success</h3>
         <p class="check-modal-subtitle">You're all done kick but and relax until the alerts come</p>
         <p class="check-modal-body">Good luck on your trading with this alert</p>
+        <input
+          placeholder="Email*"
+          class="input-card" />
       </template>
       <template v-slot:footer>
-        <button class="input-button bottom-button">Confirm</button>
+        <button class="primary-button bottom-button">Sign up</button>
+        <button class="input-button bottom-button">Cancel</button>
       </template>
     </Modal>
   </div>
@@ -205,7 +290,15 @@ export default  {
     data() {
         return {
           value: null,
-          
+          selected: 1,
+          options: [
+            { name: 'India', id: 1 },
+            { name: 'United', id: 2 },
+            { name: 'Kingdom', id: 3 }, 
+            { name: 'United State', id: 4 },
+            { name: 'Germany', id: 5 },
+            { name: 'Japan', id:6 }
+          ],
           // Modal state
           isVisibleContact: false,
           isOpen: false,
@@ -214,6 +307,12 @@ export default  {
           isVisibleDetail: false,
           isVisibleMessageAlert: false,
           isVisibleMessageSuccess: false,
+          isVisibleLoginSignupModal: false,
+          isVisibleMessaging: false,
+          messageAlertNumber: 0,
+          messageAlertName: 'Line',
+          showPassword: false,
+          password: null,
           messages: [
                 {
                     id: 0,
@@ -233,7 +332,7 @@ export default  {
                 {
                     id: 3,
                     imageURL: "src/assets/img/landing-page/modal/telegram.png",
-                    title: "telegram",
+                    title: "Telegram",
                 },
                 {
                     id: 4,
@@ -261,6 +360,9 @@ export default  {
         };
     },
     computed: {
+      buttonLabel() {
+        return (this.showPassword) ? "Hide" : "Show";
+      }
     },
     methods: {
       showM() {
@@ -284,6 +386,12 @@ export default  {
       closeSuccessMessageModal() {
         this.isVisibleMessageSuccess = false;
       },
+      closeLoginSignupModal() {
+        this.isVisibleLoginSignupModal = false;
+      },
+      closeMessagingModal() {
+        this.isVisibleMessaging = false;
+      },
       showSuccess() {
         this.isVisibleContact = false;
         this.isVisibleSuccess = true;
@@ -305,6 +413,19 @@ export default  {
       showBack() {
         this.isVisibleMessageAlert = false;
         this.isVisibleStrategy = true;
+      },
+      showLoginSignupModal(item) {
+        this.isVisibleMessageAlert = false;
+        this.isVisibleLoginSignupModal = true;
+        this.messageAlertID = item.id;
+        this.messageAlertName = item.name;
+      },
+      showMessaging() {
+        this.isVisibleLoginSignupModal = false;
+        this.isVisibleMessaging = true;
+      },
+      toggleShow() {
+        this.showPassword = !this.showPassword;
       }
     }
 }
@@ -316,9 +437,6 @@ const showObjString = ref(GLOBAL_STRING)
 </script>
 
 <style lang="scss" scoped>
-body {
-	font-family: "Poppins";
-}
 .desktop-container {
 	width: 100%;
 	max-width: 950px;
@@ -327,9 +445,6 @@ body {
 }
 .mobile .desktop-container {
 	width: 100%;
-}
-.phil-white-button {
-	@apply px-6 py-3 bg-white text-green-600 rounded-full font-bold hover:bg-gray-100 hover:shadow-md;
 }
 
 .section-title {
@@ -364,6 +479,17 @@ body {
   ::placeholder {
       color: #666666;
   }
+
+  .input-select {
+    color: #666666;
+    width: 70%;
+    margin: auto;
+    font-size: 16px;
+    padding: 20px 20px 20px 0;
+    border: none;
+    border-bottom: 1px solid #97A8BE;
+  }
+
   .input-button {
     float: right;
     width: 150px;
@@ -464,6 +590,7 @@ body {
     border-right: 1px solid #DDDDDD;
     border-bottom: 1px solid #DDDDDD;
     padding: 10px;
+    cursor: pointer;
   }
   .right-border {
     border-right: transparent;
@@ -505,5 +632,28 @@ body {
   .tags-main {
     background: #fff!important;
   }
-  
+  // Login & Signup Modal
+  .signup-part {
+    width: 50%;
+    padding: 30px;
+  }
+  .login-part {
+    width: 50%;
+    padding: 30px;
+    border-right: 1px solid #97A8BE;
+  }
+  .field.has-addons {
+    display: flex;
+    justify-content: flex-start;
+    .expanded {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+  .control {
+    box-sizing: border-box;
+    clear: both;
+    position: relative;
+    text-align: inherit;
+  }
 </style>

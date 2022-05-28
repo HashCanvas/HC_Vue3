@@ -58,6 +58,9 @@ export default {
     .full-desc {
         font-size: 16px;
         color: #97A8BE;
+        overflow: auto;
+        overflow-x: hidden;
+        height: 40px;
     }
     .primary_button {
         background-color: #fff;
