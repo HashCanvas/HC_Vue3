@@ -49,7 +49,7 @@
     },
   };
 </script>
-<style>
+<style lang="scss">
   .modal-backdrop {
     position: fixed;
     top: 0;
@@ -77,6 +77,31 @@
     border-radius: 15px;
     padding: 40px;
     overflow: hidden;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+        /* Track */
+    &::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    }
+                    
+        /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255); 
+        border-radius: 10px;
+    }
+        /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #5fa9ff; 
+    }
+    &::-webkit-scrollbar-track-piece:end {
+      margin-bottom: 10px; 
+    }
+
+    &::-webkit-scrollbar-track-piece:start {
+      margin-top: 10px;
+    }
   }
 
   .modal-header,
@@ -131,4 +156,14 @@
   .modal p {
     color: black;
   }
+  /********************************/
+  /*******     Responsive    ******/
+  /********************************/
+@media screen and ( max-width: 960px)
+{
+  .modal {
+    width: 90%;
+    overflow: auto;
+  }
+}
 </style>

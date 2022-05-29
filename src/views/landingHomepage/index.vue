@@ -161,9 +161,10 @@
                   class="input-card" style="width: 100%!important;" />
               </div>
               <div class="control">
-                <button class="button" @click="toggleShow"><span class="icon is-small is-right">
-                  <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
-                </span>
+                <button class="eye-button" @click="toggleShow">
+                  <span class="icon is-small is-right">
+                    <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
+                  </span>
                 </button>
               </div>
             </div>
@@ -197,12 +198,12 @@
       </template>
       <template v-slot:body>
         <div class="message-wrapper">
-          <div style="display: block; position: relative">
-              <img src="src/assets/img/landing-page/modal/telegram.png" style="width: 52px; height: 52px;" />
-              <img src="src/assets/img/landing-page/modal/arrow.png" style="position: absolute; top: 50%; transform: translateY(-50%);" />
-              <img src="src/assets/img/landing-page/modal/social.png" />
+          <div class="image-group">
+              <img src="src/assets/img/landing-page/modal/telegram.png" class="object-left" />
+              <img src="src/assets/img/landing-page/modal/arrow.png" class="main-image" />
+              <img src="src/assets/img/landing-page/modal/social.png" class="object-right" />
           </div>
-          <p class="check-modal-subtitle" style="width: 70%; margin: auto;">Login to use your Telegram account with core.telegram.org and SampleBot.</p>
+          <p class="check-modal-subtitle">Login to use your Telegram account with core.telegram.org and SampleBot.</p>
           <p class="check-modal-body">Please enter your Phone number in the internation format and we will send a confirmation message to yoru account via {{ this.messageAlertName }}.</p>
           <select v-model="selected" class="input-select">
             <option v-for="option in options" :value="option.id">
@@ -524,6 +525,20 @@ const showObjString = ref(GLOBAL_STRING)
   .bottom-button {
     margin: auto;
   }
+  .eye-button {
+        background-color: #fff;
+        border-color: #dbdbdb;
+        border-width: 1px;
+        color: #363636;
+        cursor: pointer;
+        justify-content: center;
+        padding-bottom: calc(0.5em - 1px);
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-top: calc(0.5em - 1px);
+        text-align: center;
+        white-space: nowrap;
+  }
   .header {
     color: #1890FF;
     font-size: 55px;
@@ -572,42 +587,7 @@ const showObjString = ref(GLOBAL_STRING)
     font-size: 16px;
     font-weight: 400;
   }
-  // Message Alert
-  .message-image {
-    display: block;
-    width:90px;
-    height:90px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .message-title {
-    color: #666666;
-    font-size: 18px;
-    text-align: center;
-  }
-  .message-item {
-    width: 25%;
-    border-right: 1px solid #DDDDDD;
-    border-bottom: 1px solid #DDDDDD;
-    padding: 10px;
-    cursor: pointer;
-  }
-  .right-border {
-    border-right: transparent;
-  }
-  .message-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    margin: auto;
-    margin-top: 0;
-  }
-  .message-wrapper>.message-item:nth-child(4), .message-wrapper>.message-item:nth-child(8) {
-    border-right: none;
-  }
-  .message-wrapper>.message-item:nth-child(5), .message-wrapper>.message-item:nth-child(6), .message-wrapper>.message-item:nth-child(7), .message-wrapper>.message-item:nth-child(8) {
-    border-bottom: none;
-  }
+  
   .check-modal-title {
     color: #1890FF;
     text-align: center;
@@ -619,41 +599,170 @@ const showObjString = ref(GLOBAL_STRING)
     text-align: center;
     font-size: 18px;
     font-weight: 400;
+    line-height: 35px;
   }
   .check-modal-body {
     color: #304156;
     font-size: 26px;
     font-weight: 500;
     text-align: center;
-    margin-top: 80px;
   }
 
   // Smart Tags
   .tags-main {
     background: #fff!important;
   }
-  // Login & Signup Modal
-  .signup-part {
-    width: 50%;
-    padding: 30px;
+  // Combine Images
+  .object-left {
+    position: absolute;
+    left: -20px;
+    width: 56px;
   }
-  .login-part {
-    width: 50%;
-    padding: 30px;
-    border-right: 1px solid #97A8BE;
+
+  .main-image {
+    position: absolute;
+    left: 44px;
+    top: 20px;
   }
-  .field.has-addons {
-    display: flex;
-    justify-content: flex-start;
-    .expanded {
-      flex-grow: 1;
-      flex-shrink: 1;
+
+  .object-right {
+    position: absolute;
+    left: 126px;
+  }
+
+  .image-group {
+    position: relative;
+    height: 50px;
+    width: 160px;
+    margin: auto;
+  }
+  /*************************************/
+  /*******      Responsive       *******/
+  /*************************************/
+  @media screen and (min-width: 960px) {
+    // Message Alert
+    .message-image {
+      display: block;
+      width:90px;
+      height:90px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .message-title {
+      color: #666666;
+      font-size: 18px;
+      text-align: center;
+    }
+    .message-item {
+      width: 25%;
+      border-right: 1px solid #DDDDDD;
+      border-bottom: 1px solid #DDDDDD;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .message-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 80%;
+      margin: auto;
+      margin-top: 0;
+    }
+    .message-wrapper>.message-item:nth-child(4), .message-wrapper>.message-item:nth-child(8) {
+      border-right: none;
+    }
+    .message-wrapper>.message-item:nth-child(5), .message-wrapper>.message-item:nth-child(6), .message-wrapper>.message-item:nth-child(7), .message-wrapper>.message-item:nth-child(8) {
+      border-bottom: none;
+    }
+     // Login & Signup Modal
+    .signup-part {
+      width: 50%;
+      padding: 30px;
+    }
+    .login-part {
+      width: 50%;
+      padding: 30px;
+      border-right: 1px solid #97A8BE;
+    }
+    .field.has-addons {
+      display: flex;
+      justify-content: flex-start;
+        .expanded {
+          flex-grow: 1;
+          flex-shrink: 1;
+        }
+    }
+    .control {
+      box-sizing: border-box;
+      clear: both;
+      position: relative;
+      text-align: inherit;
     }
   }
-  .control {
-    box-sizing: border-box;
-    clear: both;
-    position: relative;
-    text-align: inherit;
+ @media screen and ( max-width: 960px)
+  {
+    .input-field {
+      width: 100%;
+    }
+    // Message Alert
+    .message-image {
+      display: block;
+      width:90px;
+      height:90px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .message-title {
+      color: #666666;
+      font-size: 18px;
+      text-align: center;
+    }
+    .message-item {
+      width: 50%;
+      border-right: 1px solid #DDDDDD;
+      border-bottom: 1px solid #DDDDDD;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .message-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      width: 80%;
+      margin: auto;
+      margin-top: 0;
+    }
+    .message-wrapper>.message-item:nth-child(2), .message-wrapper>.message-item:nth-child(4), .message-wrapper>.message-item:nth-child(6), .message-wrapper>.message-item:nth-child(8) {
+      border-right: none;
+    }
+    .message-wrapper>.message-item:nth-child(7), .message-wrapper>.message-item:nth-child(8) {
+      border-bottom: none;
+    }
+     // Login & Signup Modal
+    .signup-part {
+      width: 100%;
+      padding: 30px;
+    }
+    .login-part {
+      width: 100%;
+      padding: 30px;
+    }
+    // Messaging modal
+    .message-wrapper {
+      width: 100%;
+      margin: 0;
+    }
+    .input-select {
+      width: 100%;
+    }
+    .input-card {
+      width: 100%;
+    }
+
+    .check-modal-body {
+      font-size: 16px;
+      line-height: 40px;
+      font-weight: 500;
+      text-align: center;
+      margin-top: 20px;
+    }
   }
 </style>

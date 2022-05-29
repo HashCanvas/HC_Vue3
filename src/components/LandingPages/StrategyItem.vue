@@ -183,7 +183,6 @@ export default {
 @media screen and (max-width: 768px) {
     .strategy-item {
         width: 174px;
-        height: 219px;
         padding: 10px;
         margin-bottom: 10px;
         h3 {

@@ -23,14 +23,14 @@
 					<el-row :gutter="10" v-if="index < strategies.length - 1">
                         
 						<el-col span="12">
-							<strategy-item @showStrategy="showS($event)"
+							<strategy-item @showStrategy="showS($event)" @showDetail="showD($event)"
 								:title="item.title"
 								:full-description="item.fullDescription"
 								:usersubscribed="item.usersubscribed"
 								:imageURL="item.imageURL"
 						/></el-col>
                         <el-col span="12">
-                                <strategy-item
+                                <strategy-item @showStrategy="showS($event)" @showDetail="showD($event)"
                                     :title="strategies[index + 1].title"
                                     :full-description="strategies[index + 1].fullDescription"
                                     :usersubscribed="strategies[index + 1].usersubscribed"
@@ -49,7 +49,7 @@ export default  {
     name: "StrategySection",
     methods: {
         showS() {
-            this.isVisibleStrategy = true;
+            this.isVisibleStrategy = true
             this.$emit('showStrategy', 'true')
         },
         showD() {
