@@ -19,6 +19,10 @@
   "dependencies": {
     "@babel/core": "^7.17.10",
     "@element-plus/icons-vue": "1.1.4",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^2.0.6",
     "@johnsoncodehk/html2pug": "^1.0.0",
     "@rollup/plugin-typescript": "^3.0.0",
     "@volar/pug-language-service": "^0.34.11",

@@ -151,23 +151,21 @@
             <input
               placeholder="Username*"
               class="input-card" style="width: 100%!important;" />
-            <div class="field has-addons">
-              <div class="control is-expanded">
-                <input v-if="showPassword" type="text"
-                  placeholder="Password"
+
+              <div class="is-expanded">
+                <input v-if="showLoginPassword" type="text"
+                  placeholder="Password" v-model="login_password"
                   class="input-card" style="width: 100%!important;" />
                 <input v-else type="password"
-                  placeholder="Password"
+                  placeholder="Password" v-model="login_password"
                   class="input-card" style="width: 100%!important;" />
-              </div>
-              <div class="control">
-                <button class="eye-button" @click="toggleShow">
+                <button class="eye-button" @click="toggleLoginShow">
                   <span class="icon is-small is-right">
-                    <i class="fas" :class="{ 'fa-eye-slash': showPassword, 'fa-eye': !showPassword }"></i>
+                    <i class="fa" :class="{ 'fa-eye-slash': showLoginPassword, 'fa-eye': !showLoginPassword }"></i>
                   </span>
                 </button>
               </div>
-            </div>
+            
             <button class="input-button" @click="showMessaging">Log in</button>
           </div>
 
@@ -179,9 +177,19 @@
             <input
               placeholder="Email*"
               class="input-card" style="width: 100%!important;" />
-            <input
-              placeholder="Password"
-              class="input-card" style="width: 100%!important;" />
+            <div class="is-expanded">
+                <input v-if="showSignupPassword" type="text"
+                  placeholder="Password" v-model="signup_password"
+                  class="input-card" style="width: 100%!important;" />
+                <input v-else type="password"
+                  placeholder="Password" v-model="signup_password"
+                  class="input-card" style="width: 100%!important;" />
+                <button class="eye-button" @click="toggleSignupShow">
+                  <span class="icon is-small is-right">
+                    <i class="fa" :class="{ 'fa-eye-slash': showSignupPassword, 'fa-eye': !showSignupPassword }"></i>
+                  </span>
+                </button>
+            </div>
             <button class="input-button" @click="showMessaging">Sign up</button>
           </div>
         </div>
@@ -246,8 +254,7 @@
   </div>
 </template>
 
-<script>
-
+<script>                                                                                                                                                                                        
 
 import NavigationBar from "./../../components/LandingPages/NavigationBar.vue"
 import HeroSection from '../../components/LandingPages/HeroSection.vue'
@@ -312,8 +319,10 @@ export default  {
           isVisibleMessaging: false,
           messageAlertNumber: 0,
           messageAlertName: 'Line',
-          showPassword: false,
-          password: null,
+          showLoginPassword: false,
+          showSignupPassword: false,
+          login_password: null,
+          signup_password: null,
           messages: [
                 {
                     id: 0,
@@ -425,8 +434,11 @@ export default  {
         this.isVisibleLoginSignupModal = false;
         this.isVisibleMessaging = true;
       },
-      toggleShow() {
-        this.showPassword = !this.showPassword;
+      toggleLoginShow() {
+        this.showLoginPassword = !this.showLoginPassword;
+      },
+      toggleSignupShow() {
+        this.showSignupPassword = !this.showSignupPassword;
       }
     }
 }
@@ -525,10 +537,15 @@ const showObjString = ref(GLOBAL_STRING)
   .bottom-button {
     margin: auto;
   }
+  .is-expanded {
+    position: relative;
+  }
   .eye-button {
+        position: absolute;
+        top: 18px;
+        right: 0;
         background-color: #fff;
-        border-color: #dbdbdb;
-        border-width: 1px;
+        border: none;
         color: #363636;
         cursor: pointer;
         justify-content: center;
@@ -539,6 +556,7 @@ const showObjString = ref(GLOBAL_STRING)
         text-align: center;
         white-space: nowrap;
   }
+  
   .header {
     color: #1890FF;
     font-size: 55px;
@@ -683,14 +701,7 @@ const showObjString = ref(GLOBAL_STRING)
       padding: 30px;
       border-right: 1px solid #97A8BE;
     }
-    .field.has-addons {
-      display: flex;
-      justify-content: flex-start;
-        .expanded {
-          flex-grow: 1;
-          flex-shrink: 1;
-        }
-    }
+
     .control {
       box-sizing: border-box;
       clear: both;
