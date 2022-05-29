@@ -304,7 +304,6 @@ export default{
         }
         .sa-container {
             position: absolute;
-            width: 100%;
             top: 295px;
             left: 15%;
             margin-top: 0;

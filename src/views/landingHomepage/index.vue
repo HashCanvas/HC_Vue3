@@ -214,7 +214,7 @@
           <p class="check-modal-subtitle">Login to use your Telegram account with core.telegram.org and SampleBot.</p>
           <p class="check-modal-body">Please enter your Phone number in the internation format and we will send a confirmation message to yoru account via {{ this.messageAlertName }}.</p>
           <select v-model="selected" class="input-select">
-            <option v-for="option in options" :value="option.id">
+            <option v-for="option in options" :value="option.id" :key="option.id">
               {{ option.name}}
             </option>
           </select>
