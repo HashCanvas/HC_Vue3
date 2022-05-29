@@ -36,13 +36,13 @@
       <template v-slot:header>
       </template>
       <template v-slot:body>
-        <img class="image" src="../../assets/img/landing-page/modal/success.png" />
+        <div class="image"><img src="../../assets/img/landing-page/modal/success.png" /></div>
         <h3 class="header">Success</h3>
         <p class="text">Thank you for your message<br />
         We'll get back to you as soon as we can</p>
       </template>
       <template v-slot:footer>
-        <button class="input-button">Understood</button>
+        <button class="input-button bottom-button">Understood</button>
       </template>
     </Modal>
 
@@ -570,7 +570,7 @@ const showObjString = ref(GLOBAL_STRING)
   }
   .image {
     width: 160px;
-    margin-left: 40%;
+    margin: auto;
   }
   .strategy-image {
     width: 100%;
@@ -774,6 +774,18 @@ const showObjString = ref(GLOBAL_STRING)
       font-weight: 500;
       text-align: center;
       margin-top: 20px;
+    }
+    .image {
+      img {
+        width: 80px;
+        margin-left: 25%;
+      }
+    }
+    .header {
+      font-size: 36px;
+    }
+    .text {
+      font-size: 20px;
     }
   }
 </style>
