@@ -76,7 +76,7 @@
     left: 50%;
     border-radius: 15px;
     padding: 40px;
-    overflow: hidden;
+    overflow: auto;
     &::-webkit-scrollbar {
         width: 5px;
     }
@@ -163,7 +163,6 @@
 {
   .modal {
     width: 90%;
-    overflow: auto;
   }
 }
 </style>

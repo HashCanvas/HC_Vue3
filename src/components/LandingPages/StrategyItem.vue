@@ -58,9 +58,26 @@ export default {
     .full-desc {
         font-size: 16px;
         color: #97A8BE;
-        overflow: auto;
-        overflow-x: hidden;
-        height: 40px;
+        overflow-y: auto;
+        overflow-x: auto;
+        height: 60px;
+        &::-webkit-scrollbar {
+            height: 4px;
+        }
+            /* Track */
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 2px grey; 
+            border-radius: 5px;
+        }
+            
+            /* Handle */
+        &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+        }
+            /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #5fa9ff; 
+        }
     }
     .primary_button {
         background-color: #fff;

@@ -51,24 +51,45 @@
         <b>Strategy EMA/MA</b>
       </template>
       <template v-slot:body>
-        <input
-            placeholder="input Field"
-            class="input-field" />
-        <input
-            placeholder="input Field"
-            class="input-field" />
-        <input
-            placeholder="input Field"
-            class="input-field" />
-        <input
-            placeholder="input Field"
-            class="input-field" />
-        <input
-            placeholder="input Field"
-            class="input-field" />
-        <input
-            placeholder="input Field"
-            class="input-field" />
+        <div class="form-wrapper">
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+          
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+          <div class="form-box">
+            <p class="form-label">Title</p>
+            <input
+              placeholder="input Field"
+              class="input-field" />
+          </div>
+        </div>
         <h3 class="modal-title">Symbols</h3>
           <smart-tagz
             autosuggest
@@ -559,11 +580,13 @@ const showObjString = ref(GLOBAL_STRING)
   
   .header {
     color: #1890FF;
-    font-size: 55px;
+    font-size: 50px;
     font-weight: 600;
     text-align: center;
+    margin-bottom: 30px;
   }
   .text {
+    font-size: 18px;
     color: #666666;
     line-height: 30px;
     text-align: center;
@@ -576,7 +599,7 @@ const showObjString = ref(GLOBAL_STRING)
     width: 100%;
   }
   .input-field {
-    width: 45%;
+    width: 90%;
     margin: 0 10px;
     font-size: 14px;
     padding: 15px 15px 15px 0;
@@ -593,6 +616,21 @@ const showObjString = ref(GLOBAL_STRING)
         opacity:1 ;
         outline: none;
     }
+  }
+  .form-label {
+    width: 100%;
+    color: #304156;
+    margin: 0;
+  }
+
+  .form-box {
+    width: 50%;
+    margin-bottom: 20px;
+  }
+
+  .form-wrapper {
+    display: flex;
+    flex-wrap: wrap;
   }
   .modal-title {
     color: #1890FF;
@@ -711,7 +749,7 @@ const showObjString = ref(GLOBAL_STRING)
   }
  @media screen and ( max-width: 960px)
   {
-    .input-field {
+    .form-box {
       width: 100%;
     }
     // Message Alert
