@@ -16,7 +16,6 @@
 
 			<el-carousel class="isMobileStragy"
 				:interval="4000"
-				height="260px"
 				indicator-position="none"
 			>
 				<el-carousel-item v-for="(item, index) in strategies" :key="item.id">
@@ -82,7 +81,7 @@ export default  {
                     id: 2,
                     imageURL: "src/assets/img/landing-page/strategy/3.png",
                     title: "EMA/MA Flip",
-                    fullDescription: "Descriptfdskfdfdfjdjlhoghoghopgiougopiuyhopifljlijiondf\ndslfdslfhsdlfdslfhlfhl",
+                    fullDescription: "Descriptfdskfdfdfjdjlhoghoghopgiougopiuyhopifljlijiondfdslfdslfhsdlfdslfhlfhl",
                     usersubscribed: true,
                     chartURL: "",
                 },
@@ -225,7 +224,6 @@ export default  {
         }
         .el-carousel__container {
             width: 360px;
-            height: 230px;
             margin: auto;
             background-color: #304156;
         }

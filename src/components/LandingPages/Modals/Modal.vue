@@ -163,6 +163,11 @@
 {
   .modal {
     width: 90%;
+    padding: 10px;
+    .btn_close {
+        width: 16px!important;
+        height: 16px!important;
+    }
   }
 }
 </style>

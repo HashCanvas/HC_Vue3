@@ -12,7 +12,6 @@
     <ContactSection />
     <FooterSection @showModal="showM($event)" />
 
-    // contact us
     <Modal v-show="isVisibleContact" @close="closeContactModal">
       <template v-slot:header>
         <b>Contact Us</b>
@@ -143,7 +142,7 @@
         <button class="input-button">Subscribe</button>
       </template>
     </Modal>
-    // Select alert messaging method
+
     <Modal v-show="isVisibleMessageAlert" @close="closeMessageModal">
       <template v-slot:header>
         <b>Select alert messaging method</b>
@@ -162,7 +161,6 @@
       </template>
     </Modal>
 
-    //Login and Signup Modal
     <Modal v-show="isVisibleLoginSignupModal" @close="closeLoginSignupModal">
       <template v-slot:header></template>
       <template v-slot:body>
@@ -220,7 +218,6 @@
       </template>
     </Modal>
 
-    // Messaging
     <Modal v-show="isVisibleMessaging" @close="closeMessagingModal">
       <template v-slot:header>
         <b>Telegram Messaging</b>
@@ -251,7 +248,6 @@
       </template>
     </Modal>
 
-    // success Message
      <Modal v-show="isVisibleMessageSuccess" @close="closeSuccessMessageModal">
       <template v-slot:header>
         

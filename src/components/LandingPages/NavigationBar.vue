@@ -12,7 +12,7 @@
                 <router-link to="#">About</router-link>
                 <router-link to="#">Contact</router-link>
 			</div>
-			<button class="input-button" @click="passEvent">Join Now</button>
+			<button class="input-button">Join Now</button>
 		</div>
 	</div>
 
@@ -22,7 +22,10 @@
 			<div class="hamburger__item hamburger__item--middle"></div>
 			<div class="hamburger__item hamburger__item--last"></div>
 		</div>
-		<router-link to="#">
+		<router-link to="#" class="bigger">
+			<img class="logo" src="../../assets/logo1.svg" />
+		</router-link>
+		<router-link to="#" class="smaller">
 		    <img class="logo" src="../../assets/logo_light2.svg" />
         </router-link>
 
@@ -63,10 +66,6 @@ export default {
 		}
 	},
 	methods: {
-		passEvent() {
-			this.$emit('showModal', 'true')
-			console.log('showmodal')
-		}
 	}
 };
 </script>
@@ -217,7 +216,7 @@ export default {
 		}	
 	}	
 }
-@media screen and (min-width: 900px)
+@media screen and (min-width: 1050px)
 {
 	.navbar {
 		margin: 40px 20px; 
@@ -226,8 +225,10 @@ export default {
 		display: none;
 	}
 }
-@media screen and (max-width: 900px)
-{
+@media screen and (max-width: 1050px)
+{	.smaller {
+		display: none;
+	}
 	.isDesktopNavbar {
 		display: none;
 	}
@@ -274,6 +275,14 @@ export default {
 	.hover-underline-animation:hover:after {
 		transform: scaleX(1);
 		transform-origin: bottom left;
+	}
+}
+@media screen and (max-width: 768px) {
+	.bigger {
+		display: none;
+	}
+	.smaller {
+		display: block;
 	}
 }
 </style>

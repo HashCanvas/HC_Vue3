@@ -59,10 +59,10 @@ export default {
         font-size: 16px;
         color: #97A8BE;
         overflow-y: auto;
-        overflow-x: auto;
-        height: 60px;
+        height: 40px;
+        word-wrap: break-word;
         &::-webkit-scrollbar {
-            height: 4px;
+            width: 4px;
         }
             /* Track */
         &::-webkit-scrollbar-track {
